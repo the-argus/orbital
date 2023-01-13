@@ -1,0 +1,36 @@
+---
+ CMakeLists.txt | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4bad0fa..598a254 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -17,14 +17,16 @@ set(ORBITAL_DIR_SOURCES    "${ORBITAL_DIR_ROOT}/src")
+ project(orbital CXX)
+ 
+ # Dependencies
+-find_package(SDL2 REQUIRED)
+-find_package(imgui REQUIRED)
+-find_package(fmt CONFIG REQUIRED)
+-find_package(RapidJSON CONFIG REQUIRED)
+-find_package(Vulkan REQUIRED)
+-find_package(ZLIB REQUIRED)
+-find_library(BOTAN_LIBRARIES NAMES BOTAN2 botan2 BOTAN botan)
+-find_library(CAPSTONE_LIBRARIES NAMES capstone_dll capstone)
++find_package(PkgConfig REQUIRED)
++pkg_check_modules(SDL2 REQUIRED sdl2)
++# this may be required later. can't test as of right now without core.cmake
++# pkg_check_modules(imgui REQUIRED imgui)
++pkg_check_modules(fmt REQUIRED fmt)
++pkg_check_modules(RapidJSON REQUIRED RapidJSON)
++pkg_check_modules(Vulkan REQUIRED vulkan)
++pkg_check_modules(ZLIB REQUIRED zlib)
++pkg_check_modules(BOTAN_LIBRARIES NAMES BOTAN2 botan2 BOTAN botan)
++pkg_check_modules(CAPSTONE_LIBRARIES NAMES capstone_dll capstone)
+ 
+ # Sources
+ macro(ORBITAL_FILES_APPEND)
+-- 
+2.38.1
+
